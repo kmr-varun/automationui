@@ -11,83 +11,24 @@ import Footer from '@/components/Pages/Footer';
 import automationData from './data.json';
 import EmailForm from '@/components/Pages/EmailFormComponent';
 import PreviewAutomation from '@/components/Pages/PreviewAutomation';
-import jsonData from './data.json';
-import { json } from 'stream/consumers';
 
-interface TriggerParameters {
-  emailAddress?: string;
-  folderPath?: string;
-  dateTime?: string;
-  crmSystem?: string;
-  contactId?: string;
-  ticketSystem?: string;
-  ticketId?: string;
-}
-
-interface Trigger {
-  id: string;
-  name: string;
-  description: string;
-  type: string;
-  parameters: TriggerParameters;
-  conditions: {
-    where: {
-      status: string[];
-      changes: string[];
-    };
-    from: string[];
-    to: string[];
-  };
-}
-
-interface ActionParameters {
-  to?: string;
-  subject?: string;
-  body?: string;
-  delay?: number;
-  sourcePath?: string;
-  destinationPath?: string;
-  crmSystem?: string;
-  contactDetails?: {
-    name?: string;
-    email?: string;
-  };
-  ticketSystem?: string;
-  ticketDetails?: {
-    subject?: string;
-    description?: string;
-  };
-  reminderTime?: string;
-  message?: string;
-}
-
-interface Action {
-  id: string;
-  name: string;
-  description: string;
-  type: string;
-  parameters: ActionParameters;
-  category: string;
-}
-
-interface AutomationRule {
-  id: string;
-  triggerId: string;
-  actionIds: string[];
-  name: string;
-}
-
-interface AutomationData {
-  triggers: Trigger[];
-  actions: Action[];
-  automationRules: AutomationRule[];
-}
-
-const data = jsonData as AutomationData;
 
 const HomePage = () => {
-  const dropdownOptions = automationData;
-  console.log(dropdownOptions);
+  const dropdownOptions = {
+    trigger: [
+      'When a Record Matches a Condition',
+      'Status changes from Contacted to Proposal',
+      'When a Record is Updated',
+      'When a Form is Submitted',
+      'When a Webhook is Recieved',
+      'At a Scheduled Time'
+    ],
+    integration: [
+      'When a Form is Submitted',
+      'When a Webhook is Recieved',
+      'At a Scheduled Time'
+    ]
+  };
 
 
   const handleSelect = (option: string) => {
@@ -97,9 +38,9 @@ const HomePage = () => {
   return (
     <div className='w-screen h-screen bg-black text-white'>
       <div className='h-[92%] flex flex-row  p-4 gap-4 '>
-
+      {/* This is the left side initial component  */}
         <div className='basis-1/4 flex  bg-[#0B0B0C] rounded-[12px] border-solid border-[1px] border-[#242428] flex flex-col p-8'>
-          {/* Initial Width */}
+          
           <div className=' flex h-full'>
             <div className='flex flex-col h-full'>
               <div className='w-8 h-[32%] border-[1px] border-l-[#27282A] border-y-[#27282A] border-transparent'>
@@ -163,10 +104,8 @@ const HomePage = () => {
 
           </div>
         </div>
-
-        {/* Target Setting */}
-
-        {/* <div className='basis-3/4 bg-[#242428] rounded-[12px] h-full flex flex-1 items-center justify-center'>
+        {/* //This is the right side initial component */}
+        <div className='basis-3/4 bg-[#242428] rounded-[12px] h-full flex flex-1 items-center justify-center'>
         <div id='main' className='w-fit mx-auto'>
 
           <div className='text-xl text-[#848694] my-4'>Trigger Settings</div>
@@ -220,17 +159,13 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
+
+      
+
+        {/* //This is the actionsetting component of right side which comes after initial component */}
 
         <div className='basis-3/4 bg-[#242428] rounded-[12px] h-full flex flex-1 items-center justify-center'>
-          <div id='main' className='w-full mx-20'>
-            <EmailForm />
-          </div>
-        </div>
-
-        {/* Action Setting */}
-
-        {/* <div className='basis-3/4 bg-[#242428] rounded-[12px] h-full flex flex-1 items-center justify-center'>
         <div id='main' className='w-fit mx-auto'>
 
           <div className='text-xl text-[#848694] my-4'>Action Settings</div>
@@ -263,14 +198,20 @@ const HomePage = () => {
                 <DynamicIconButton label="Add Conditions" Icon={AddFilled} />
               </div>
             </div>
-          </div> */}
+          </div>
 
 
 
-        {/* </div>
-      </div> */}
+        </div>
+      </div>
 
-        {/* Previw Automation */}
+      {/* //This is the emailform of right side which comes after action setting component */}
+        <div className='basis-3/4 bg-[#242428] rounded-[12px] h-full flex flex-1 items-center justify-center'>
+          <div id='main' className='w-full mx-20'>
+            <EmailForm />
+          </div>
+        </div>
+
 
         
 
