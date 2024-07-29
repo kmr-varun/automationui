@@ -1,0 +1,188 @@
+{
+  "triggers": [
+    {
+      "id": "1",
+      "name": "New Email Received",
+      "description": "Triggers when a new email is received in the inbox.",
+      "type": "email",
+      "parameters": {
+        "emailAddress": "string"
+      },
+      "conditions": {
+        "where": {
+          "status": ["unread", "important"],
+          "changes": ["flagged", "moved"]
+        },
+        "from": ["specific@example.com", "newsletter@example.com"],
+        "to": ["user@example.com"]
+      }
+    },
+    {
+      "id": "2",
+      "name": "File Uploaded",
+      "description": "Triggers when a file is uploaded to a specific folder.",
+      "type": "file",
+      "parameters": {
+        "folderPath": "string"
+      },
+      "conditions": {
+        "where": {
+          "status": ["new", "modified"],
+          "changes": ["created", "renamed"]
+        },
+        "from": ["user1", "user2"],
+        "to": ["shared-folder"]
+      }
+    },
+    {
+      "id": "3",
+      "name": "Scheduled Time",
+      "description": "Triggers at a specific time and date.",
+      "type": "time",
+      "parameters": {
+        "dateTime": "string"
+      },
+      "conditions": {
+        "where": {
+          "status": [],
+          "changes": []
+        },
+        "from": [],
+        "to": []
+      }
+    },
+    {
+      "id": "4",
+      "name": "CRM Contact Added",
+      "description": "Triggers when a new contact is added in the CRM system.",
+      "type": "crm",
+      "parameters": {
+        "crmSystem": "string",
+        "contactId": "string"
+      },
+      "conditions": {
+        "where": {
+          "status": ["new"],
+          "changes": ["added"]
+        },
+        "from": ["sales-team"],
+        "to": ["crm-database"]
+      }
+    },
+    {
+      "id": "5",
+      "name": "New Ticket Created",
+      "description": "Triggers when a new ticket is created in the helpdesk system.",
+      "type": "helpdesk",
+      "parameters": {
+        "ticketSystem": "string",
+        "ticketId": "string"
+      },
+      "conditions": {
+        "where": {
+          "status": ["open", "pending"],
+          "changes": ["created", "updated"]
+        },
+        "from": ["support-team"],
+        "to": ["ticketing-system"]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "1",
+      "name": "Send Email",
+      "description": "Sends an email to a specified address.",
+      "type": "email",
+      "parameters": {
+        "to": "string",
+        "subject": "string",
+        "body": "string"
+      },
+      "category": "standard"
+    },
+    {
+      "id": "2",
+      "name": "Move File",
+      "description": "Moves a file to a different folder.",
+      "type": "file",
+      "parameters": {
+        "sourcePath": "string",
+        "destinationPath": "string"
+      },
+      "category": "standard"
+    },
+    {
+      "id": "3",
+      "name": "Create CRM Contact",
+      "description": "Creates a new contact in the CRM system.",
+      "type": "crm",
+      "parameters": {
+        "crmSystem": "string",
+        "contactDetails": {
+          "name": "string",
+          "email": "string"
+        }
+      },
+      "category": "integration"
+    },
+    {
+      "id": "4",
+      "name": "Create Ticket",
+      "description": "Creates a new ticket in the helpdesk system.",
+      "type": "helpdesk",
+      "parameters": {
+        "ticketSystem": "string",
+        "ticketDetails": {
+          "subject": "string",
+          "description": "string"
+        }
+      },
+      "category": "integration"
+    },
+    {
+      "id": "5",
+      "name": "Send Follow-Up Email",
+      "description": "Sends a follow-up email to a specified address after a delay.",
+      "type": "email",
+      "parameters": {
+        "to": "string",
+        "subject": "string",
+        "body": "string",
+        "delay": "integer"
+      },
+      "category": "followUp"
+    },
+    {
+      "id": "6",
+      "name": "Set Reminder",
+      "description": "Sets a reminder for a specified time.",
+      "type": "reminder",
+      "parameters": {
+        "reminderTime": "string",
+        "message": "string"
+      },
+      "category": "followUp"
+    }
+  ],
+  "automationRules": [
+    {
+      "id": "1",
+      "triggerId": "1",
+      "actionIds": ["1", "5"],
+      "name": "Notify and Follow-Up on New Email"
+    },
+    {
+      "id": "2",
+      "triggerId": "2",
+      "actionIds": ["2"],
+      "name": "Move File on Upload"
+    },
+    {
+      "id": "3",
+      "triggerId": "4",
+      "actionIds": ["3"],
+      "name": "Create CRM Contact on Trigger"
+    }
+  ]
+}
